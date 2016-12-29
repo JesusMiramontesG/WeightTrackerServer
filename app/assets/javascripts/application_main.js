@@ -10,11 +10,9 @@ function toggleAuthActivity() {
     signInButton = $("#sign-in-btn");
     isAuthenticating = signInButton.hasClass("authenticating");
     if (!isAuthenticating) {
-        activityIndicator.addClass("indicator-animating-in");
-        signInButton.addClass("btn-auth-animating-out authenticating");
+        activityIndicator.addClass("indicator-animating-in visible");
     } else {
-        activityIndicator.removeClass("indicator-animating-in");
-        signInButton.removeClass("btn-auth-animating-out authenticating");
+        activityIndicator.removeClass("indicator-animating-in hidden");
     }
 }
 
@@ -38,6 +36,7 @@ function toggleShowPassword(element) {
 
 $(document).ready(function() {
     $(".show-password").on("click", function() { 
+        emailField = $("#user_email");
         passwordField = $("#user_password");
         newType = toggleShowPassword(passwordField);
         anchor = $(this).children("a");
@@ -47,7 +46,7 @@ $(document).ready(function() {
             anchor.html("Mask");
         }
     });
-
+    
     $("#sign-in-btn").on("click", function() {
         toggleAuthActivity();
     });

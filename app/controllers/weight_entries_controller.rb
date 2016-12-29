@@ -3,9 +3,24 @@ class WeightEntriesController < ApplicationController
 
     def index
         @user = current_user
+
+        # before the user does much of anything, make sure their profile is up to date
+        needs_user_profile_completion(@user)
         @weight_entries = current_user.weight_entries.order('created_at DESC')
-        @current_diff = @weight_entries.second.exact_weight - @weight_entries.first.exact_weight
-        @diff_is_loss = @current_diff > 0 ? true:false
+        if @weight_entries.any?
+            # calculate the difference and return if the difference is a net loss
+            first = @weight_entries.first.exact_weight
+            second = @weight_entries.second.nil? ? 0: @weight_entries.second.exact_weight
+            @current_diff = second - first
+            @diff_is_loss = @current_diff > 0 ? true:false
+            if second == 0
+                @first_diff = true
+            end
+        else
+            # we didn't have any reasonble values to work with yet, so don't return any valuable data
+            @current_diff = 0
+            @diff_is_loss = false
+        end
         @graph_labels = Array.new
         @graph_data = Array.new
         @weight_entries.each do |entry|
@@ -50,6 +65,11 @@ class WeightEntriesController < ApplicationController
     private
         def weight_entry_params
             params.require(:weight_entry).permit(:exact_weight)
+        end
+
+        def needs_user_profile_completion(user)
+            redirect_to edit_user_profile_path(user) if user.sign_in_count <= 1 && user.user_profile.nil?
+            return
         end
 
 end

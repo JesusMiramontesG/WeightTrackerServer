@@ -1,7 +1,9 @@
-<%= for_for :user_profile, url: user_profile_path do |f| %>
-    <%= f.label :preferred_units, 'Preferred Units' %>
-    <%= f.number_field :preferred_units %>
-    <%= f.label :height, 'Height' %>
-    <%= f.number_field :height %>
-    <%= f.submit 'Save User Profile' %>
-<% end %>
+<div class="misc-content-container col-md-8 col-xs-8">
+    <h2>Your Profile</h2>
+    <% unless @user_profile.errors %>
+        <div class="notify notify-success">
+            <h3><%= flash.success %></h3>
+        </div>
+    <% end %>
+    <%= render "form" %>
+</div>

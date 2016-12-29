@@ -1,19 +1,27 @@
 <div class="weight-entries-container col-md-8 col-xs-8">
-    <h2 class="last-weight-entry">Last Weight Entry
-        <span class="last-weight"><%= "#{@weight_entries.first.exact_weight} lbs."%><span>
-    </h2>
-    <h3>
-            <% if @diff_is_loss %>
-                <span class="weight-diff-indicator diff-is-down">
-                    &darr;
-            <% else %>
-                <span class="weight-diff-indicator diff-is-up">
-                    &uarr;
-            <% end %>
-        <%= "#{@current_diff.round(3).abs} lbs."%>
+     <% if @weight_entries.count > 0 %>
+        <h2 class="last-weight-entry">Last Weight Entry
+            <span class="last-weight"><%= "#{@weight_entries.first.exact_weight} lbs."%><span>
+        </h2>
+        <% if !@first_diff %>
+            <h3>
+                <% if @diff_is_loss %>
+                    <span class="weight-diff-indicator diff-is-down">
+                        &darr;
+                <% else %>
+                    <span class="weight-diff-indicator diff-is-up">
+                        &uarr;
+                <% end %>
+                <%= "#{@current_diff.round(3).abs} lbs."%>
                 </span>
-    </h3>
-<canvas id="weightChart" width="600" height="400"></canvas>
+            </h3>
+            <canvas id="weightChart" width="600" height="400"></canvas>
+        <% end %>
+    <% else %>
+        <h2 class="last-weight-entry">We don't have previous entries for you.
+            <span class="last-weight">That's okay though, enter an initial weight to get started!</span>
+        </h2>
+    <% end %>
 <table class="weight-entries">
     <thead>
         <tr>

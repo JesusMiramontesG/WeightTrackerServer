@@ -1,0 +1,8 @@
+<ul class="notification-list">
+        <% flash.each do |type, message| %>
+            <li class="notify notify-<%= "#{type}" %>"> 
+                <span><%= "#{message}" %></span>
+            </li>
+        <% end %>
+</ul>
+

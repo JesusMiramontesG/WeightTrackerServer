@@ -80,6 +80,11 @@ $negative-color: #F69A9A;
     display: none;
 }
 
+.visible {
+    display: block;
+    visibility: visible;
+}
+
 .main-app-bg {
     @include linear-gradient(84deg, $app-bg-color-1, $app-bg-color-2);
 }
@@ -285,4 +290,68 @@ $negative-color: #F69A9A;
 
 .diff-is-up {
     color: $negative-color;
+}
+
+.misc-content-container {
+    background: $translucent;
+    display: block;
+    width: 100%;
+    border: 1px solid $transulucent-light-border;    
+    box-shadow: 1px 2px $box-shadow-bg;
+    -webkit-box-shadow: 1px 1px 2px $box-shadow-bg;
+    margin: 0 auto;
+    padding: 0;
+
+    form {
+        width: 60%;
+        display: block;
+        margin: 0 auto;
+    }
+
+        h2 {
+        position: relative;
+        top: 0;
+        left: 0;
+        color: #fff;
+        width: 100%;
+        padding: 5px;
+        text-align: center;
+        display: block;
+        margin: 0 0 20px;
+        border-bottom: 1px solid $transulucent-light-border;
+        font-weight: normal;
+        text-shadow: 1px 1px $text-shadow-dark-bg;
+        -webkit-text-shadow: 1px 1px $text-shadow-dark-bg;
+        font-size: 1.35em;
+    }
+
+}
+
+.notification-list {
+    display: block;
+    margin: 0 20px 5px 0;
+}
+
+.notify {
+    display: block;
+    width: 60%;
+    color: $light-text-color;
+    padding: 5px;
+    margin: 0 auto;
+    background: $translucent;
+    border: 1px solid $transulucent-light-border;
+    box-shadow: 1px 2px $box-shadow-bg;
+    -webkit-box-shadow: 1px 1px 2px $box-shadow-bg;
+
+    span {
+        display: block;
+    }
+}
+
+.notify-alert {
+    background: $negative-color;
+}
+
+.notify-success {
+    background: $positive-color;
 }

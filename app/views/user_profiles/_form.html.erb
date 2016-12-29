@@ -1,7 +1,4 @@
-<div class="misc-content-container col-md-8 col-xs-8">
- <h2>Your Profile</h2>
-
-<%= form_for(:user_profile, url: user_user_profiles_path, method: :post) do |f| %>
+<%= form_for(@user_profile) do |f| %>
     <%= f.label :full_name, "Full Name" %>
     <div class="field">
         <%= f.text_field :full_name, placeholder: "John Appleseed", class: "textfield small-footprint" %>
@@ -18,4 +15,3 @@
 
     <%= f.submit 'Save Your Profile', class: "btn btn-primary" %>
 <% end %>
-</div>
