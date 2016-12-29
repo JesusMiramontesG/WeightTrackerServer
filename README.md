@@ -1,24 +1,11 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+WeightTracker is a fairly simple Rails-based application that allows users to track their weight in a single place.
 
-Things you may want to cover:
+* Built on Ruby 2.3.1, but has compatibility for Ruby 2.3.0. Rails 2.0.0 is not advisable.
 
-* Ruby version
+* Built using Rails 5.0.0.1, but should have compatibility for Rails 5+.
 
-* System dependencies
+* RBEnv is probably the easiest way to maintain Ruby/Rails environments on a machine.
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Running `rails test` is the preferred testing mechanism for now
