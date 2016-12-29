@@ -1,0 +1,57 @@
+<div class="weight-entries-container col-md-8 col-xs-8">
+    <h2 class="last-weight-entry">Last Weight Entry
+        <span class="last-weight"><%= "#{@weight_entries.first.exact_weight} lbs."%><span>
+    </h2>
+    <h3>
+            <% if @diff_is_loss %>
+                <span class="weight-diff-indicator diff-is-down">
+                    &darr;
+            <% else %>
+                <span class="weight-diff-indicator diff-is-up">
+                    &uarr;
+            <% end %>
+        <%= "#{@current_diff.round(3).abs} lbs."%>
+                </span>
+    </h3>
+<canvas id="weightChart" width="400" height="300"></canvas>
+<table class="weight-entries">
+    <thead>
+        <tr>
+            <th>Weight</th>
+            <th>Posted at</th>
+        <tr>
+    </thead>
+    <tbody>
+        <%= form_for :weight_entry, url: user_weight_entries_path do |f| %>
+        <tr>
+            <td>
+                <div class="field">
+                    <%= f.text_field "exact_weight", class: "textfield small-footprint", placeholder: "New Weight" %>
+                </div>
+            <td><%= f.submit "Save new entry" %> 
+        <% end %> 
+    <% @weight_entries.each do |entry| %>
+        <tr>
+            <td><%= "#{entry.exact_weight.to_s} lbs" %></td>
+            <td><%= entry.created_at.strftime("%m-%d-%Y at %H:%M:%S %p").to_s %></td>
+        </tr>
+    <% end %>
+    </tbody>
+</table>
+</div>
+<script>
+    var ctx = document.getElementById("weightChart");
+    var myLineChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: <%= @graph_labels.to_s.html_safe %>,
+            datasets: [{
+                data: <%= @graph_data.reverse %>
+            }]
+        },
+        options: {
+            responsive: false
+        }
+    });
+</script>
+

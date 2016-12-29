@@ -1,0 +1,6 @@
+<%= form_for :weight_entry, url: user_weight_entries_path do |f| %>
+    <%= f.label :exact_weight, 'Weight' %>
+    <%= f.number_field :exact_weight %>
+    <%= f.submit 'Save Weight' %>
+<% end %>
+

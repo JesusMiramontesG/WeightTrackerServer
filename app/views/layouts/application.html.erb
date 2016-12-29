@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>WeightTrackerServer</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <%= csrf_meta_tags %>
+
+        <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+        <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.js' %>
+
+        <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+        <%= javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js' %>
+        <%= javascript_include_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js' %>
+    </head>
+
+    <body class="main-app-bg">
+        <nav class="navbar navbar-default">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navigation" aria-expanded="false">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="/" class="navbar-brand">SimpleWeightTracker</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="main-navigation">
+                <ul class="nav navbar-nav navbar-right">
+                    <li role="separator" class="divider"></li>
+                    
+                    <% if (controller_name + "#" + action_name).eql? "static_pages#index" %>
+                        <li class="active">
+                    <% else %>
+                        <li>
+                    <% end %>
+                        <%= link_to "Home", root_url %>
+                    </li>
+                    <li role="separator" class="divider"></li>
+
+                   <% if (controller_name + "#" + action_name).eql? "static_pages#about" %>
+                        <li class="active">
+                    <% else %>
+                        <li>
+                    <% end %>
+
+                    <%= link_to "About", root_url %>
+                    </li>
+                    
+                    <li role="separator" class="divider"></li>
+                    <% if user_signed_in? %>
+                        <% if (controller_name + "#" "index").eql? "weight_entries#index" %>
+                            <li class="active">
+                        <% else %>
+                            <li>
+                        <% end %>
+                        <%= link_to "Weight Entries", user_weight_entries_path %>
+                        </li>
+                        <li><%= link_to "Sign Out", destroy_user_session_path, method: "delete" %></li>
+                    <% else %>
+                        <% if (controller_name + "#" + action_name).eql? "sessions#new" %>
+                            <li class="active">
+                        <% else %>
+                            <li>
+                        <% end %>
+
+                        <%= link_to "Sign In", new_user_session_path %>
+                        </li>
+                    <% end %>
+                </ul>
+            </div>
+        </nav>
+        <div class="container">
+            <%= yield %>
+        </div>
+    </body>
+</html>

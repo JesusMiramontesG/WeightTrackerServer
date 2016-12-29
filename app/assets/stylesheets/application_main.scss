@@ -1,0 +1,288 @@
+@import 'bootstrap';
+@import 'bootstrap-sprockets';
+
+$app-bg-color-1: #6C5B7B;
+$app-bg-color-2: #355C7D;
+$translucent: rgba(255,255,255, 0.25);
+$transulucent-light-border: rgba(255,255,255,0.50);
+$box-shadow-bg: rgba(0,0,0,0.50);
+$text-shadow-dark-bg: rgba(0,0,0,0.50);
+$text-shadow-light-bg: rgba(255,255,255,0.50);
+$light-text-color: rgba(254,254,254,1.0);
+$dark-text-color: rgba(10,11,12,1.0);
+$positive-color: #A3AE9B;
+$negative-color: #F69A9A;
+
+@mixin border-radius($radius) {
+    border-radius: $radius;
+    -webkit-border-radius: $radius;
+}
+
+@mixin linear-gradient($direction, $color-stops...) {
+    // we need to determine if the first argument passed into the mixin was a color or a direction; handle accordingly
+    @if is-direction($direction) == false {
+        $color-stops: $direction, $color-stops;
+        $direction: 180deg;
+    }
+    background: nth(nth($color-stops, 1), 1);
+    background: -webkit-linear-gradient(legacy-direction($direction), $color-stops);
+    background: linear-gradient($direction, $color-stops)
+}
+
+@function is-direction($value) {
+    $is-keyword: index((to top, to top right, to right top, to right, to bottom right, to right bottom, to bottom, to bottom left, to left bottom, to left, to left top, to top left), $value);
+    $is-angle: type-of($value) == 'number' and index('deg' 'grad' 'turn' 'rad', unit($value));
+
+    @return $is-keyword or $is-angle;
+}
+
+@function legacy-direction($value) {
+    @if is-direction($value) == false {
+        @error "Cannot convert `#{value}` to legacy syntax: Not a direction."
+    }
+
+    $conversion-map: (
+        to top          : bottom,
+        to top right    : bottom left,
+        to right top    : left bottom,
+        to right        : left,
+        to bottom right : top left,
+        to right bottom : left top,
+        to bottom       : top,
+        to bottom left  : top right,
+        to left bottom  : right top,
+        to left         : right,
+        to left top     : right bottom,
+        to top left     : bottom right
+    );
+    @if map-has-key($conversion-map, $value) {
+        @return map-get($conversion-map, $value);
+    }
+
+    @return 90deg - $value;
+}
+
+@keyframes btn-animate-out {
+    from {width: 80%; height: 44px; visibility: visible;}
+    to {width: 0; height: 0; visibility: hidden; color: rgba(0,0,0,0)}
+}
+
+@keyframes indicator-animate-out {
+    from {width: 44px; height: 44px; visibility: visible;}
+    to {width: 0; height: 0; visibility: hidden; color: rgba(0,0,0,0)}
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+.hidden {
+    display: none;
+}
+
+.main-app-bg {
+    @include linear-gradient(84deg, $app-bg-color-1, $app-bg-color-2);
+}
+
+.auth-container {
+    background: $translucent;
+    display: block;
+    width: 60%;
+    min-width: 350px;
+    margin: 0 auto;
+    border: 1px solid $transulucent-light-border;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    box-shadow: 1px 2px $box-shadow-bg;
+    -webkit-box-shadow: 1px 1px 2px $box-shadow-bg;
+    position: relative;
+    padding-bottom: 15px;
+
+    h2 {
+        position: relative;
+        top: 0;
+        left: 0;
+        color: #fff;
+        width: 100%;
+        padding: 5px;
+        text-align: center;
+        display: block;
+        margin: 0 0 20px;
+        border-bottom: 1px solid $transulucent-light-border;
+        font-weight: normal;
+        text-shadow: 1px 1px $text-shadow-dark-bg;
+        -webkit-text-shadow: 1px 1px $text-shadow-dark-bg;
+        font-size: 1.35em;
+    }
+    
+    .auth-checkbox-container {
+        display: block;
+        position: relative;
+        text-align: left;
+        margin: 0;
+        top: 0;
+        left: 50px;
+        width: 50%;
+    }
+}
+
+.field {
+    margin: 5px auto 10px;
+    text-size: 1.3em;
+    position: relative;
+
+    .textfield {
+        @include border-radius(5px);
+        border: 0;
+        padding: 5px 10px;
+        display: block;
+        width: 80%;
+        height: 50px;
+        margin: 0 auto;
+        font-size: 14pt;
+        color: $dark-text-color;
+    }
+
+    .small-footprint {
+        font-size: 12pt;
+        padding: 2px;
+        width: 50%;
+        height: 35px;
+        margin: 5px;
+    }
+}
+
+.checkbox-container {
+    display: block;
+}
+
+.btn-primary {
+    width: 80%;
+    margin: 10px auto;
+    display: block;
+    height: 44px;
+    padding: 5px;
+}
+
+.btn-auth-animating-out {
+    animation-name:  btn-animate-out;
+    animation-duration: 150ms;
+    animation-fill-mode: forwards;
+}
+
+.btn-auth-animating-in {
+    animation-name: btn-animate-out;
+    animation-duration: 150ms;
+    animation-direction: reverse;
+    animation-fill-mode: none;
+    animation-timing-function: ease-in;
+    -webkit-animation-timing-function: ease-in;
+}
+
+.indicator-animating-in {
+    animation-name: indicator-animate-out;
+    animation-duration: 150ms;
+    animation-direction: reverse;
+    animation-fill-mode: none;
+    animation-timing-function: ease-out;
+    -webkit-animation-timing-function: ease-out;
+
+}
+
+.auth-center-container {
+    display: block;
+    margin: 0 auto;
+    width: 80%;
+    text-align: center;
+}
+
+.auth-sub-actions, .auth-sub-actions a {
+    color: $light-text-color;
+}
+
+.auth-loading-indicator {
+    background: rgba(255,255,255,0);
+    display: block;
+    width: 32px;
+    height: 32px;
+    margin: 0 auto;
+}
+
+.show-password {
+    display: block;
+    position: absolute;
+    right: 12%;
+    top: 15px;
+    height: 32px;
+    width: 32px;
+
+    a:hover {
+        cursor: pointer;
+    }
+}
+
+.weight-entries-container {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+
+    canvas {
+        display: block;
+        margin: 0 auto;
+    }
+}
+
+.weight-entries {
+    background: rgba(255,255,255,0.8);
+    display: table;
+    margin: 10px auto;
+    width: 80%;
+    height: 300px;
+    overflow-y: scroll;
+    border: 1px solid $transulucent-light-border;
+    box-shadow: 1px 2px $box-shadow-bg;
+    -webkit-box-shadow: 1px 1px 2px $box-shadow-bg;
+    border-collapse: collapse;
+   
+    tr {
+        border-bottom: 1px solid $transulucent-light-border;
+
+        th, td {
+            padding: 2px;
+        }
+    }
+}
+
+.last-weight-entry {
+    font-family: "HelveticaNeue", "Helvetica", sans-serif;
+    color: $light-text-color;
+    text-shadow: $text-shadow-dark-bg;
+    font-size: 1.3em;
+    text-align: center;
+    margin: 0 auto;
+    font-weight: bold;
+
+    .last-weight {
+        font-family: "HelveticaNeue-Light", "Helvetica", sans-serif;
+        font-weight: normal;
+        font-size: 2.5em;
+        display: block;
+        text-align: center;
+        margin: 5px auto;
+    }
+}
+
+.weight-diff-indicator {
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+    text-shadow: 1px 1px 1px $text-shadow-dark-bg;
+}
+
+.diff-is-down {
+    color: $positive-color;
+}
+
+.diff-is-up {
+    color: $negative-color;
+}
