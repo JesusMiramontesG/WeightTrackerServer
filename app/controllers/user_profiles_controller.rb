@@ -57,7 +57,7 @@ class UserProfilesController < ApplicationController
 
     private
         def user_profile_params
-            params.require("user_profile").permit(["prefered_units", "height", "full_name"])
+            params.require("user_profile").permit(["prefered_units", "height", "full_name", "gender"])
         end
 
 end

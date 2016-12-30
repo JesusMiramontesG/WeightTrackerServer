@@ -8,15 +8,29 @@
             <%= f.label :full_name, "Full Name" %>
             <%= f.text_field :full_name, placeholder: "John Appleseed", class: "textfield" %>
         </div>
+ 
         <div class="field">
-            <%= f.label :prefered_units, "Preferred Units (standard/metric)" %>    
-            <%= f.text_field :prefered_units, class: "textfield" %>
+            <%= f.label :height, "Height (in inches or centimeters)" %>
+            <%= f.text_field :height, class: "textfield" %>
         </div>
 
         <div class="field">
-            <%= f.label :height, "Height (in inches)" %>
-            <%= f.text_field :height, class: "textfield" %>
+            <%= f.label :gender, 'I am a...' %>
+            <br>
+            <select name="user_profile[gender]">
+                <%= options_for_select([['Female', '1'], ['Male', '0']], 1) %>
+            </select>
+ 
         </div>
+        <div class="field">
+            <%= f.label :prefered_units, 'Preferred Units' %>
+            <br>
+            <select name="user_profile[prefered_units]">
+                <%= options_for_select([['Standard', '0'], ['Metric', '1']], 0) %>
+            </select>
+        </div>
+
+
 
         <%= f.submit 'Save Your Profile', class: "btn btn-primary" %>
     <% end %>

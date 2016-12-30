@@ -10,6 +10,10 @@ class WeightEntriesController < ApplicationController
             return
         end
 
+        # get the preferred units from the profile
+        @preferred_units = @user.user_profile.prefered_units
+        @preferred_units_string = @preferred_units == 0 ? "Pounds" : "Kilograms"
+
         # get the user's height from the profile so we can compute BMI for each entry 
         @user_height = @user.user_profile.height
         @weight_entries = current_user.weight_entries.order('created_at DESC')
@@ -78,8 +82,6 @@ class WeightEntriesController < ApplicationController
         end
 
         def needs_user_profile_completion(user)
-            puts "-----#{user.user_profile} -------"
-            puts user.user_profile.to_json
             if user.user_profile.nil?
                 return true
             end

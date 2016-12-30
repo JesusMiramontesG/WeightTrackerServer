@@ -1,7 +1,7 @@
 <div class="weight-entries-container col-md-8 col-xs-8">
      <% if @weight_entries.count > 0 %>
         <h2 class="last-weight-entry">Last Weight Entry
-            <span class="last-weight"><%= "#{@weight_entries.first.exact_weight} lbs."%><span>
+            <span class="last-weight"><%= "#{@weight_entries.first.exact_weight.round(2)} #{@preferred_units_string}"%><span>
         </h2>
         <% if !@first_diff %>
             <h3>
@@ -12,7 +12,7 @@
                     <span class="weight-diff-indicator diff-is-up">
                         &uarr;
                 <% end %>
-                <%= "#{@current_diff.round(3).abs} lbs."%>
+                <%= "#{@current_diff.round(3).abs} #{@preferred_units_string}"%>
                 </span>
             </h3>
         <% end %>
@@ -41,8 +41,12 @@
         <% end %> 
     <% @weight_entries.each do |entry| %>
         <tr>
-            <td><%= "#{entry.exact_weight.to_s} lbs" %></td>
-            <td><%= ((entry.exact_weight / @user_height**2.0) * 703.0).round(1) %></td> 
+            <td><%= "#{entry.exact_weight.round(2)} #{@preferred_units_string}" %></td>
+            <% if @preferred_units == 0 %>
+                <td><%= ((entry.exact_weight.round(2) / @user_height**2.0) * 703.0).round(1) %></td> 
+            <% elsif @preferred_units == 1 %>
+                <td><%= ((entry.exact_weight.round(2) / (@user_height.to_f/100)**2.0)).round(1) %></td>
+            <% end %>
             <td><%= entry.updated_at.in_time_zone("Eastern Time (US & Canada)").strftime("%m-%d-%Y %r") %></td>
         </tr>
     <% end %>
