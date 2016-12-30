@@ -376,3 +376,40 @@ $negative-color: #F69A9A;
 .notify-success {
     background: $positive-color;
 }
+
+.home {
+    width: 80%;
+    display: block;
+    height: 100%;
+    margin: 0 auto;
+
+    .screenshot {
+        margin: 10px auto;
+        width: 80%;
+        height: 80%;
+        display: block;
+        background: rgba(255,255,255,0.8);
+    }
+
+    h2 {
+        color: $light-text-color;
+        text-align: center;
+    }
+
+    p {
+        color: $light-text-color;
+        text-align: center;
+
+        a {
+            color: $light-text-color;
+            text-decoration: underline;
+        }
+        a:hover {
+            color: #337ab7;
+        }
+    }
+
+    a {
+        line-height: 2em;
+    }
+}
