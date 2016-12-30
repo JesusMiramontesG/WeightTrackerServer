@@ -11,12 +11,11 @@ class UserProfilesController < ApplicationController
     end
 
     def create
-        puts "------CREATE USER PROFILE ------"
         @user = current_user
         @user_profile = @user.build_user_profile(user_profile_params)
         if @user_profile.save
             flash[:success] = "Your user profile has been created!"
-            redirect_to edit_user_profile_path(current_user)
+            redirect_to user_weight_entries_path
         else
             render :new
         end
@@ -38,6 +37,9 @@ class UserProfilesController < ApplicationController
             # get the user profile for the user
         @user = current_user
         @user_profile = @user.user_profile
+        if @user_profile.nil?
+            redirect_to new_user_user_profile_url
+        end
  
         rescue ActiveRecord::RecordNotFound => e
             # if the user profile doesnt' exist, don't just fail entirely, redirect the user_profile#new action

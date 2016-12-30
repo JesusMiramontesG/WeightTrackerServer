@@ -1,16 +1,16 @@
 <%= form_for(@user_profile) do |f| %>
-    <%= f.label :full_name, "Full Name" %>
     <div class="field">
-        <%= f.text_field :full_name, placeholder: "John Appleseed", class: "textfield small-footprint" %>
+        <%= f.label :full_name, "Full Name" %>
+        <%= f.text_field :full_name, placeholder: "John Appleseed", class: "textfield" %>
     </div>
-    <%= f.label :prefered_units, "Preferred Units (standard/metric)" %>    
     <div class="field">
-        <%= f.text_field :prefered_units, class: "textfield small-footprint" %>
+        <%= f.label :prefered_units, "Preferred Units (standard/metric)" %>    
+        <%= f.text_field :prefered_units, class: "textfield" %>
     </div>
 
-    <%= f.label :height, "Height (in inches)" %>
     <div class="field">
-        <%= f.text_field :height, class: "textfield small-footprint" %>
+        <%= f.label :height, "Height (in inches)" %>
+        <%= f.text_field :height, class: "textfield" %>
     </div>
 
     <%= f.submit 'Save Your Profile', class: "btn btn-primary" %>

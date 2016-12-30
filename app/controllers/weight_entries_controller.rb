@@ -5,14 +5,24 @@ class WeightEntriesController < ApplicationController
         @user = current_user
 
         # before the user does much of anything, make sure their profile is up to date
-        needs_user_profile_completion(@user)
+        if needs_user_profile_completion(@user)
+            redirect_to edit_user_profile_path(@user)
+            return
+        end
+
+        # get the user's height from the profile so we can compute BMI for each entry 
+        @user_height = @user.user_profile.height
         @weight_entries = current_user.weight_entries.order('created_at DESC')
+
+        # if there ARE weight entries, then grab them and return first and second weight entries for display
         if @weight_entries.any?
             # calculate the difference and return if the difference is a net loss
             first = @weight_entries.first.exact_weight
             second = @weight_entries.second.nil? ? 0: @weight_entries.second.exact_weight
             @current_diff = second - first
             @diff_is_loss = @current_diff > 0 ? true:false
+
+            # is this the first entry? If so, don't tell the user they've gained/lost weight
             if second == 0
                 @first_diff = true
             end
@@ -68,8 +78,12 @@ class WeightEntriesController < ApplicationController
         end
 
         def needs_user_profile_completion(user)
-            redirect_to edit_user_profile_path(user) if user.sign_in_count <= 1 && user.user_profile.nil?
-            return
+            puts "-----#{user.user_profile} -------"
+            puts user.user_profile.to_json
+            if user.user_profile.nil?
+                return true
+            end
+            return false
         end
 
 end

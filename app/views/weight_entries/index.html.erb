@@ -15,8 +15,8 @@
                 <%= "#{@current_diff.round(3).abs} lbs."%>
                 </span>
             </h3>
-            <canvas id="weightChart" width="500" height="200"></canvas>
         <% end %>
+            <canvas id="weightChart" width="500" height="200"></canvas>
     <% else %>
         <h2 class="last-weight-entry">We don't have previous entries for you.
             <span class="last-weight">That's okay though, enter an initial weight to get started!</span>
@@ -26,6 +26,7 @@
     <thead>
         <tr>
             <th>Weight</th>
+            <th>BMI</th>
             <th>Posted at</th>
         <tr>
     </thead>
@@ -36,11 +37,12 @@
                 <div class="field">
                     <%= f.text_field "exact_weight", class: "textfield small-footprint", placeholder: "New Weight" %>
                 </div>
-            <td><%= f.submit "Save new entry" %> 
+            <td colspan="2"><%= f.submit "Save new entry" %> 
         <% end %> 
     <% @weight_entries.each do |entry| %>
         <tr>
             <td><%= "#{entry.exact_weight.to_s} lbs" %></td>
+            <td><%= ((entry.exact_weight / @user_height**2.0) * 703.0).round(1) %></td> 
             <td><%= entry.updated_at.in_time_zone("Eastern Time (US & Canada)").strftime("%m-%d-%Y %r") %></td>
         </tr>
     <% end %>

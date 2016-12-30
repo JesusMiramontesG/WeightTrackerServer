@@ -1,21 +1,23 @@
-<div class="misc-content-container col-md-8 col-xs-8">
- <h2>Your Profile</h2>
+<div class="auth-container">
+    <h2>Your Profile</h2>
+    <h3>Before we get started...</h3>
+    <p>We need to capture a couple basic bits of information about you. This will only take a moment!</p>
 
-<%= form_for(:user_profile, url: user_user_profiles_path, method: :post) do |f| %>
-    <%= f.label :full_name, "Full Name" %>
-    <div class="field">
-        <%= f.text_field :full_name, placeholder: "John Appleseed", class: "textfield small-footprint" %>
-    </div>
-    <%= f.label :prefered_units, "Preferred Units (standard/metric)" %>    
-    <div class="field">
-        <%= f.text_field :prefered_units, class: "textfield small-footprint" %>
-    </div>
+    <%= form_for(:user_profile, url: user_user_profiles_path, method: :post) do |f| %>
+        <div class="field">
+            <%= f.label :full_name, "Full Name" %>
+            <%= f.text_field :full_name, placeholder: "John Appleseed", class: "textfield" %>
+        </div>
+        <div class="field">
+            <%= f.label :prefered_units, "Preferred Units (standard/metric)" %>    
+            <%= f.text_field :prefered_units, class: "textfield" %>
+        </div>
 
-    <%= f.label :height, "Height (in inches)" %>
-    <div class="field">
-        <%= f.text_field :height, class: "textfield small-footprint" %>
-    </div>
+        <div class="field">
+            <%= f.label :height, "Height (in inches)" %>
+            <%= f.text_field :height, class: "textfield" %>
+        </div>
 
-    <%= f.submit 'Save Your Profile', class: "btn btn-primary" %>
-<% end %>
+        <%= f.submit 'Save Your Profile', class: "btn btn-primary" %>
+    <% end %>
 </div>

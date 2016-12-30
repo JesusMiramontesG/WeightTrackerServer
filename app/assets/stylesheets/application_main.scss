@@ -119,6 +119,11 @@ $negative-color: #F69A9A;
         -webkit-text-shadow: 1px 1px $text-shadow-dark-bg;
         font-size: 1.35em;
     }
+
+    h3, p {
+        margin: 10px;
+        color: $light-text-color;
+    }
     
     .auth-checkbox-container {
         display: block;
