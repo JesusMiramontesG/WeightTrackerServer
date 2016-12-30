@@ -15,7 +15,7 @@
                 <%= "#{@current_diff.round(3).abs} lbs."%>
                 </span>
             </h3>
-            <canvas id="weightChart" width="600" height="400"></canvas>
+            <canvas id="weightChart" width="500" height="200"></canvas>
         <% end %>
     <% else %>
         <h2 class="last-weight-entry">We don't have previous entries for you.
@@ -41,24 +41,38 @@
     <% @weight_entries.each do |entry| %>
         <tr>
             <td><%= "#{entry.exact_weight.to_s} lbs" %></td>
-            <td><%= entry.created_at.strftime("%m-%d-%Y at %H:%M:%S %p").to_s %></td>
+            <td><%= entry.updated_at.in_time_zone("Eastern Time (US & Canada)").strftime("%m-%d-%Y %r") %></td>
         </tr>
     <% end %>
     </tbody>
 </table>
 </div>
 <script>
+    Chart.defaults.global.defaultFontColor = 'rgba(255,255,255,0.8)';
     var ctx = document.getElementById("weightChart");
     var myLineChart = new Chart(ctx, {
         type: 'line',
         data: {
             labels: <%= @graph_labels.to_s.html_safe %>,
             datasets: [{
-                data: <%= @graph_data.reverse %>
+                data: <%= @graph_data.reverse %>,
+                backgroundColor: 'rgba(255,255,255,0.20)',
+                pointRadius: 3,
+                pointHitRadius: 10,
+                borderColor: 'rgb(255,255,255)',
+                borderWidth: 1,
             }]
         },
         options: {
-            responsive: false
+            title: {
+                display: true,
+                text: 'Weight Over Time',
+                fontColor: 'rgb(255,255,255)'
+            },
+            responsive: true,
+            legend: {
+                display: false,
+            }
         }
     });
 </script>

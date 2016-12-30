@@ -24,7 +24,7 @@ class WeightEntriesController < ApplicationController
         @graph_labels = Array.new
         @graph_data = Array.new
         @weight_entries.each do |entry|
-            @graph_labels.push(entry.updated_at.strftime("%m-%d-%Y %H:%M"))
+            @graph_labels.push(entry.updated_at.in_time_zone("Eastern Time (US & Canada)").strftime("%m-%d-%Y %r"))
             @graph_data.push(entry.exact_weight)
         end
     end
