@@ -26,7 +26,7 @@
             <%= form_for :weight_entry, url: user_weight_entries_path do |f| %>
                     <div class="field">
                         <%= f.label "exact_weight", "New weight" %>
-                        <%= f.text_field "exact_weight", id: "newWeightEntryBtn", class: "textfield small-footprint", placeholder: "... #{@preferred_units_string}" %>
+                        <%= f.number_field "exact_weight", id: "newWeightEntryBtn", class: "textfield small-footprint", placeholder: "... #{@preferred_units_string}" %>
                     <%= f.submit "Save", class: "btn btn-default new-weight-btn" %>
                     </div>
             <% end %> 
