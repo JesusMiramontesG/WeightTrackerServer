@@ -1,5 +1,7 @@
 # README
 
+* I'm currently deployed at https://simpleweighttracker.herokuapp.com! *
+
 WeightTracker is a fairly simple Rails-based application that allows users to track their weight in a single place.
 
 * Built on Ruby 2.3.1, but has compatibility for Ruby 2.3.0. Rails 2.0.0 is not advisable.
