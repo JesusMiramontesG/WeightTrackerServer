@@ -1,10 +1,9 @@
 <div class="weight-entries-container col-md-8 col-xs-8">
-     <% if @weight_entries.count > 0 %>
+    <% if @weight_entries.count > 0 %>
         <h2 class="last-weight-entry">Last Weight Entry
             <span class="last-weight"><%= "#{@weight_entries.first.exact_weight.round(2)} #{@preferred_units_string}"%><span>
         </h2>
         <% if !@first_diff %>
-            <h3>
                 <% if @diff_is_loss %>
                     <span class="weight-diff-indicator diff-is-down">
                         &darr;
@@ -14,12 +13,30 @@
                 <% end %>
                 <%= "#{@current_diff.round(3).abs} #{@preferred_units_string}"%>
                 </span>
-            </h3>
         <% end %>
+        <div class="weigh-in">        
+            <% unless flash.nil? %>
+                <% flash.each  do |type, message|  %>
+                    <div class="notify notify-<%= "#{type}" %>">
+                        <%= "#{message}" %>
+                    </div>
+                <% end %>
+            <% end %>
+
+            <%= form_for :weight_entry, url: user_weight_entries_path do |f| %>
+                    <div class="field">
+                        <%= f.label "exact_weight", "New weight" %>
+                        <%= f.text_field "exact_weight", id: "newWeightEntryBtn", class: "textfield small-footprint", placeholder: "... #{@preferred_units_string}" %>
+                    <%= f.submit "Save", class: "btn btn-default new-weight-btn" %>
+                    </div>
+            <% end %> 
+        </div>
+ 
+        <hr class="clear">
             <canvas id="weightChart" width="500" height="200"></canvas>
     <% else %>
         <h2 class="last-weight-entry">We don't have previous entries for you.
-            <span class="last-weight">That's okay though, enter an initial weight to get started!</span>
+            <span class="last-weight">Enter an initial weight to get started!</span>
         </h2>
     <% end %>
 <table class="weight-entries">
@@ -31,15 +48,7 @@
         <tr>
     </thead>
     <tbody>
-        <%= form_for :weight_entry, url: user_weight_entries_path do |f| %>
-        <tr>
-            <td>
-                <div class="field">
-                    <%= f.text_field "exact_weight", class: "textfield small-footprint", placeholder: "New Weight" %>
-                </div>
-            <td colspan="2"><%= f.submit "Save new entry" %> 
-        <% end %> 
-    <% @weight_entries.each do |entry| %>
+   <% @weight_entries.each do |entry| %>
         <tr>
             <td><%= "#{entry.exact_weight.round(2)} #{@preferred_units_string}" %></td>
             <% if @preferred_units == 0 %>

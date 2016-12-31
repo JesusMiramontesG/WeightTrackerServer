@@ -21,8 +21,8 @@ class WeightEntriesController < ApplicationController
         # if there ARE weight entries, then grab them and return first and second weight entries for display
         if @weight_entries.any?
             # calculate the difference and return if the difference is a net loss
-            first = @weight_entries.first.exact_weight
-            second = @weight_entries.second.nil? ? 0: @weight_entries.second.exact_weight
+            first = @weight_entries.first.nil? ? 0 : @weight_entries.first.exact_weight
+            second = @weight_entries.second.nil? ? 0 : @weight_entries.second.exact_weight
             @current_diff = second - first
             @diff_is_loss = @current_diff > 0 ? true:false
 
@@ -54,7 +54,8 @@ class WeightEntriesController < ApplicationController
             flash[:success] = "Your weight entry has been saved!"
             redirect_to user_weight_entries_path
         else
-            render :new
+            flash[:warning] = "An error occurred when saving your entry"
+            redirect_to user_weight_entries_path
         end
     end
     

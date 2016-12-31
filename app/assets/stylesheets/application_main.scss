@@ -255,6 +255,8 @@ $negative-color: #F69A9A;
     canvas {
         display: block;
         margin: 0 auto;
+        min-height: 200px;
+        min-width: 300px;
     }
 }
 
@@ -262,7 +264,7 @@ $negative-color: #F69A9A;
     background: rgba(255,255,255,0.8);
     display: table;
     margin: 10px auto;
-    width: 80%;
+    width: 100%;
     height: 300px;
     overflow-y: scroll;
     border: 1px solid $transulucent-light-border;
@@ -297,6 +299,46 @@ $negative-color: #F69A9A;
         margin: 5px auto;
     }
 }
+
+hr.clear {
+    clear: both;
+}
+
+.weigh-in {
+    width: 100%;
+    height: 100px;
+    display: block;
+    margin: 10px auto;
+    position: relative;
+    border-top: 1px solid #fff;
+    padding-top: 15px;
+    
+
+    .field {
+        margin: 0 auto;
+        position: relative;
+        left: 23%;
+    }
+
+    label {
+        display: block; 
+        width: 33%;
+        left: 0;
+    }
+
+    input {
+        display: block;
+        width: 20%;
+        float: left;
+        max-width: 150px;
+    }
+    .new-weight-btn {
+        position: relative;
+        top: 5px;
+    }
+}
+
+
 
 .weight-diff-indicator {
     text-align: center;

@@ -2,6 +2,16 @@ function changeElementType(element, newElementType) {
     $(element).attr("type", newElementType);
 }
 
+function validatePresenceOfWeightEntry(element) {
+    if ($(element).val() == null) {
+        element.addClass("has-error");
+        console.log(element).val();
+        return;
+        
+    } else {
+        element.removeClass("has-error");
+    }
+}
 /*
  * begins the UI activity procedure; show "loading" and hide the login button
  */
@@ -50,5 +60,10 @@ $(document).ready(function() {
     $("#sign-in-btn").on("click", function() {
         toggleAuthActivity();
     });
+
+    $(".new-weight-btn").on("click", function() {
+        validatePresenceOfWeightEntry($("#weight_entry_exact_weight"));
+    });
+
 });
 
