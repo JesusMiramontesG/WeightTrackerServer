@@ -15,8 +15,8 @@
         <%= f.label :prefered_units, 'Preferred Units' %>
         <em>Editing units is currently disabled</em>
         <br>
-        <select name="user_profile[prefered_units]" disabled>
-            <%= options_for_select([['Standard', '0'], ['Metric', '1']], @user_profile.prefered_units) %>
+        <select name="user_profile[preferred_units]">
+            <%= options_for_select([['Standard', '0'], ['Metric', '1']], @user_profile.preferred_units) %>
         </select>
  
     </div>

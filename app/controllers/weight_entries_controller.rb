@@ -11,18 +11,18 @@ class WeightEntriesController < ApplicationController
         end
 
         # get the preferred units from the profile
-        @preferred_units = @user.user_profile.prefered_units
+        @preferred_units = @user.user_profile.preferred_units.to_i
         @preferred_units_string = @preferred_units == 0 ? "Pounds" : "Kilograms"
 
         # get the user's height from the profile so we can compute BMI for each entry 
-        @user_height = @user.user_profile.height
+        @user_height = @user.user_profile.height.to_f
         @weight_entries = current_user.weight_entries.order('created_at DESC')
 
         # if there ARE weight entries, then grab them and return first and second weight entries for display
         if @weight_entries.any?
             # calculate the difference and return if the difference is a net loss
-            first = @weight_entries.first.nil? ? 0 : @weight_entries.first.exact_weight
-            second = @weight_entries.second.nil? ? 0 : @weight_entries.second.exact_weight
+            first = @weight_entries.first.nil? ? 0 : @weight_entries.first.exact_weight.to_f
+            second = @weight_entries.second.nil? ? 0 : @weight_entries.second.exact_weight.to_f
             @current_diff = second - first
             @diff_is_loss = @current_diff > 0 ? true:false
 
@@ -39,7 +39,7 @@ class WeightEntriesController < ApplicationController
         @graph_data = Array.new
         @weight_entries.each do |entry|
             @graph_labels.push(entry.updated_at.in_time_zone("Eastern Time (US & Canada)").strftime("%m-%d-%Y %r"))
-            @graph_data.push(entry.exact_weight)
+            @graph_data.push(entry.exact_weight.to_f)
         end
     end
 

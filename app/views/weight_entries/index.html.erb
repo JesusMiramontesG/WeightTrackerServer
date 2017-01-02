@@ -1,7 +1,8 @@
 <div class="weight-entries-container col-md-8 col-xs-8">
+
     <% if @weight_entries.count > 0 %>
         <h2 class="last-weight-entry">Last Weight Entry
-            <span class="last-weight"><%= "#{@weight_entries.first.exact_weight.round(2)} #{@preferred_units_string}"%><span>
+            <span class="last-weight"><%= "#{@weight_entries.first.exact_weight.to_f.round(2)} #{@preferred_units_string}"%><span>
         </h2>
         <% if !@first_diff %>
                 <% if @diff_is_loss %>
@@ -14,6 +15,9 @@
                 <%= "#{@current_diff.round(3).abs} #{@preferred_units_string}"%>
                 </span>
         <% end %>
+    <% else %>
+        <h2 class="last-weight-entry">Log your first weight entry to get started!</h2>
+    <% end %>
         <div class="weigh-in">        
             <% unless flash.nil? %>
                 <% flash.each  do |type, message|  %>
@@ -23,7 +27,7 @@
                 <% end %>
             <% end %>
 
-            <%= form_for :weight_entry, url: user_weight_entries_path do |f| %>
+            <%= form_for :weight_entry, html: {novalidate: "novalidate"}, url: user_weight_entries_path do |f| %>
                     <div class="field">
                         <%= f.label "exact_weight", "New weight" %>
                         <%= f.number_field "exact_weight", id: "newWeightEntryBtn", class: "textfield small-footprint", placeholder: "... #{@preferred_units_string}" %>
@@ -34,11 +38,7 @@
  
         <hr class="clear">
             <canvas id="weightChart" width="500" height="200"></canvas>
-    <% else %>
-        <h2 class="last-weight-entry">We don't have previous entries for you.
-            <span class="last-weight">Enter an initial weight to get started!</span>
         </h2>
-    <% end %>
 <table class="weight-entries">
     <thead>
         <tr>
@@ -50,11 +50,11 @@
     <tbody>
    <% @weight_entries.each do |entry| %>
         <tr>
-            <td><%= "#{entry.exact_weight.round(2)} #{@preferred_units_string}" %></td>
+            <td><%= "#{entry.exact_weight.to_f.round(2)} #{@preferred_units_string}" %></td>
             <% if @preferred_units == 0 %>
-                <td><%= ((entry.exact_weight.round(2) / @user_height**2.0) * 703.0).round(1) %></td> 
+                <td><%= ((entry.exact_weight.to_f.round(2) / @user_height**2.0) * 703.0).round(1) %></td> 
             <% elsif @preferred_units == 1 %>
-                <td><%= ((entry.exact_weight.round(2) / (@user_height.to_f/100)**2.0)).round(1) %></td>
+                <td><%= ((entry.exact_weight.to_f.round(2) / (@user_height.to_f/100)**2.0)).round(1) %></td>
             <% end %>
             <td><%= entry.updated_at.in_time_zone("Eastern Time (US & Canada)").strftime("%m-%d-%Y %r") %></td>
         </tr>

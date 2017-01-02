@@ -10,19 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161230222111) do
+ActiveRecord::Schema.define(version: 20170102015315) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "user_profiles", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "prefered_units"
-    t.integer  "height"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.string   "full_name"
-    t.integer  "gender"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.string   "encrypted_preferred_units"
+    t.string   "encrypted_preferred_units_iv"
+    t.string   "encrypted_height"
+    t.string   "encrypted_gender_iv"
+    t.string   "encrypted_full_name"
+    t.string   "encrypted_full_name_iv"
+    t.string   "encrypted_height_iv"
     t.index ["user_id"], name: "index_user_profiles_on_user_id", using: :btree
   end
 
@@ -45,11 +48,12 @@ ActiveRecord::Schema.define(version: 20161230222111) do
 
   create_table "weight_entries", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "weight"
-    t.integer  "bmi"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.float    "exact_weight"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.string   "encrypted_exact_weight"
+    t.string   "encrypted_exact_weight_iv"
+    t.string   "encrypted_bmi"
+    t.string   "encrypted_bmi_iv"
     t.index ["user_id"], name: "index_weight_entries_on_user_id", using: :btree
   end
 
