@@ -5,4 +5,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   has_one :user_profile
   has_many :weight_entries
+  has_many :user_service_integrations
 end

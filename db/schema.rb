@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170102040838) do
+ActiveRecord::Schema.define(version: 20170102202746) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,10 +19,10 @@ ActiveRecord::Schema.define(version: 20170102040838) do
     t.string   "service_name"
     t.string   "service_authorization_url"
     t.string   "service_base_api_url"
-    t.string   "encrypted_service_client_id"
-    t.string   "encrypted_service_client_id_iv"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.string   "encrypted_client_app_id"
+    t.string   "encrypted_client_app_id_iv"
   end
 
   create_table "user_profiles", force: :cascade do |t|
@@ -37,6 +37,21 @@ ActiveRecord::Schema.define(version: 20170102040838) do
     t.string   "encrypted_full_name_iv"
     t.string   "encrypted_height_iv"
     t.index ["user_id"], name: "index_user_profiles_on_user_id", using: :btree
+  end
+
+  create_table "user_service_integrations", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "service_integration_id"
+    t.string   "encrypted_authorization_token"
+    t.string   "encrypted_authorization_token_iv"
+    t.string   "encrypted_access_token"
+    t.string   "encrypted_access_token_iv"
+    t.string   "encrypted_refresh_token"
+    t.string   "encrypted_refresh_token_iv"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.index ["service_integration_id"], name: "index_user_service_integrations_on_service_integration_id", using: :btree
+    t.index ["user_id"], name: "index_user_service_integrations_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -68,5 +83,7 @@ ActiveRecord::Schema.define(version: 20170102040838) do
   end
 
   add_foreign_key "user_profiles", "users"
+  add_foreign_key "user_service_integrations", "service_integrations"
+  add_foreign_key "user_service_integrations", "users"
   add_foreign_key "weight_entries", "users"
 end
