@@ -65,6 +65,15 @@
                         <% end %>
                         <%= link_to "Your Profile", edit_user_profile_path(current_user) %>
                         </li>
+
+                       <% if (controller_name + "#" + action_name).eql? "integrations#edit" %>
+                            <li class="active">
+                        <% else %>
+                            <li>
+                        <% end %>
+                        <%= link_to "Your Integrations", edit_user_profile_path(current_user) %>
+                        </li>
+ 
  
                         <li><%= link_to "Sign Out", destroy_user_session_path, method: "delete" %></li>
                     <% else %>

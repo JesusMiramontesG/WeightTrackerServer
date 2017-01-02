@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  service_name: MyString
+  service_authorization_url: MyString
+  service_base_api_url: MyString
+
+two:
+  service_name: MyString
+  service_authorization_url: MyString
+  service_base_api_url: MyString
