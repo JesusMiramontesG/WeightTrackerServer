@@ -1,6 +1,6 @@
 # README
 
-* I'm currently deployed at https://simpleweighttracker.herokuapp.com! *
+**I'm currently deployed on [Heroku](https://simpleweighttracker.herokuapp.com)!**
 
 WeightTracker is a fairly simple Rails-based application that allows users to track their weight in a single place.
 
