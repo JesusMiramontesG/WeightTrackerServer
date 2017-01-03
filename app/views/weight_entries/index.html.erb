@@ -45,12 +45,12 @@
             <th>Weight</th>
             <th>BMI</th>
             <th>Posted at</th>
-        <tr>
+        </tr>
     </thead>
     <tbody>
    <% @weight_entries.each do |entry| %>
-        <tr>
-            <td><%= "#{entry.exact_weight.to_f.round(2)} #{@preferred_units_string}" %></td>
+        <tr height="40">
+            <td height="30"><%= "#{entry.exact_weight.to_f.round(2)} #{@preferred_units_string}" %></td>
             <% if @preferred_units == 0 %>
                 <td><%= ((entry.exact_weight.to_f.round(2) / @user_height**2.0) * 703.0).round(1) %></td> 
             <% elsif @preferred_units == 1 %>
