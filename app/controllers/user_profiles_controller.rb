@@ -34,8 +34,11 @@ class UserProfilesController < ApplicationController
 
     def edit
         begin
-            # get the user profile for the user
         @user = current_user
+        # get US timezones so the user can set this in their profile
+        @us_zones = get_us_timezones
+       
+        #get the user profile 
         @user_profile = @user.user_profile
         if @user_profile.nil?
             redirect_to new_user_user_profile_url
@@ -57,7 +60,17 @@ class UserProfilesController < ApplicationController
 
     private
         def user_profile_params
-            params.require("user_profile").permit(["preferred_units", "height", "full_name", "gender"])
+            params.require("user_profile").permit(["preferred_units", "height", "full_name", "gender", "preferred_timezone"])
         end
 
+        def get_us_timezones
+            @us_zones = []
+            ActiveSupport::TimeZone.us_zones.each_entry{ |zone|
+                tz_info = ActiveSupport::TimeZone.find_tzinfo(zone.name)
+                #zone_names.push(zone.name)
+                @us_zones.push(tz_info.identifier)
+            }
+
+           return @us_zones
+        end
 end

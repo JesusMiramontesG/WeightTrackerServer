@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170102202746) do
+ActiveRecord::Schema.define(version: 20170104024354) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20170102202746) do
     t.string   "encrypted_full_name"
     t.string   "encrypted_full_name_iv"
     t.string   "encrypted_height_iv"
+    t.string   "preferred_timezone"
     t.index ["user_id"], name: "index_user_profiles_on_user_id", using: :btree
   end
 

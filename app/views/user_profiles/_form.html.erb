@@ -18,7 +18,12 @@
         <select name="user_profile[preferred_units]">
             <%= options_for_select([['Standard', '0'], ['Metric', '1']], @user_profile.preferred_units) %>
         </select>
- 
+    </div>
+
+    <div class="field">
+        <%= f.label :preferred_timezone, 'Preferred Timezone' %>
+        <br>
+        <%= select_tag "user_profile[preferred_timezone]", options_for_select(@us_zones, @us_zones)  %>
     </div>
 
 
