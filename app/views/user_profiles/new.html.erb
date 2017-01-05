@@ -34,7 +34,7 @@
         <%= f.label :preferred_timezone, 'Preferred Timezone' %>
         <br>
         <%= select_tag "user_profile[preferred_timezone]", 
-            options_for_select(@us_zones.each { |zone| 
+            options_for_select(@us_zones.collect { |zone| 
                 [zone["name"], 
                  zone["tz_id"]] 
         }) %>
