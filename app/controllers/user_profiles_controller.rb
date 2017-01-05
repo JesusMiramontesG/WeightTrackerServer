@@ -3,6 +3,7 @@ class UserProfilesController < ApplicationController
 
     def new
         @user_profile = UserProfile.new
+        @us_zones = get_us_timezones
     end
 
     def show
@@ -37,7 +38,6 @@ class UserProfilesController < ApplicationController
         @user = current_user
         # get US timezones so the user can set this in their profile
         @us_zones = get_us_timezones
-       
         #get the user profile 
         @user_profile = @user.user_profile
         if @user_profile.nil?
@@ -64,13 +64,12 @@ class UserProfilesController < ApplicationController
         end
 
         def get_us_timezones
-            @us_zones = []
-            ActiveSupport::TimeZone.us_zones.each_entry{ |zone|
+            us_timezones = []
+            ActiveSupport::TimeZone.us_zones.each do |zone|
                 tz_info = ActiveSupport::TimeZone.find_tzinfo(zone.name)
-                #zone_names.push(zone.name)
-                @us_zones.push(tz_info.identifier)
-            }
-
-           return @us_zones
+                tz = {"name" => zone.name, "tz_id" => tz_info.identifier}
+                us_timezones.push(tz)
+            end
+            return us_timezones
         end
 end
