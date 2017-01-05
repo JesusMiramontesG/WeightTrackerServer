@@ -8,6 +8,7 @@ class UserProfilesController < ApplicationController
 
     def show
         @user = current_user
+        @us_zones = get_us_timezones
         @user_profile = @user.user_profile
     end
 
