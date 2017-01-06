@@ -25,12 +25,14 @@ class UserProfilesController < ApplicationController
 
     def update
         @user = current_user
+        @us_zones = get_us_timezones
         @user_profile = current_user.user_profile
         if @user_profile.update_attributes(user_profile_params)
-            flash[:success] = "Your user profile was updated"
-            redirect_to edit_user_profile_url
+            flash[:notice] = "Your user profile has been updated!"
+            puts flash[:notice]
+            redirect_to edit_user_profile_path(@user)
         else
-            render :show
+            render :edit
         end
     end
 

@@ -14,6 +14,12 @@ class WeightEntriesController < ApplicationController
         @preferred_units = @user.user_profile.preferred_units.to_i
         @preferred_units_string = @preferred_units == 0 ? "Pounds" : "Kilograms"
 
+        # get the preferred timezone from the user profile
+        @preferred_timezone = @user.user_profile.preferred_timezone unless @user.user_profile.preferred_timezone.nil?
+        
+        # if the user hasn't added a timezone to their profile yet, redirect them to profile#edit for completion
+        redirect_to edit_user_profile_path(@user), :alert => "Please update your preferred timezone before continuing." if !@preferred_timezone.nil? 
+        
         # get the user's height from the profile so we can compute BMI for each entry 
         @user_height = @user.user_profile.height.to_f
         @weight_entries = current_user.weight_entries.order('created_at DESC')
@@ -38,7 +44,7 @@ class WeightEntriesController < ApplicationController
         @graph_labels = Array.new
         @graph_data = Array.new
         @weight_entries.each do |entry|
-            @graph_labels.push(entry.updated_at.in_time_zone("Eastern Time (US & Canada)").strftime("%m-%d-%Y %r"))
+            @graph_labels.push(entry.updated_at.in_time_zone(@preferred_timezone).strftime("%m-%d-%Y %r"))
             @graph_data.push(entry.exact_weight.to_f)
         end
     end
@@ -88,5 +94,4 @@ class WeightEntriesController < ApplicationController
             end
             return false
         end
-
 end

@@ -3,9 +3,13 @@
     <h3>Editing your profile</h3>
     <p>You can edit your profile at any time.</p>
 
-    <% unless @user_profile.errors %>
-        <div class="notify notify-success">
-            <h3><%= flash.success %></h3>
+    <% if flash[:alert] %>
+        <div class="notify notify-notification">
+            <p><%= flash[:alert] %></p>
+        </div>
+    <% elsif flash[:notice] %>
+        <div class="notify">
+            <p><%= flash[:notice] %></p>
         </div>
     <% end %>
     <%= render "form" %>
