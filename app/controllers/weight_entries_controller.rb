@@ -18,7 +18,7 @@ class WeightEntriesController < ApplicationController
         @preferred_timezone = @user.user_profile.preferred_timezone unless @user.user_profile.preferred_timezone.nil?
         
         # if the user hasn't added a timezone to their profile yet, redirect them to profile#edit for completion
-        redirect_to edit_user_profile_path(@user), :alert => "Please update your preferred timezone before continuing." if !@preferred_timezone.nil? 
+        redirect_to edit_user_profile_path(@user), :alert => "Please update your preferred timezone before continuing." if @preferred_timezone.nil? 
         
         # get the user's height from the profile so we can compute BMI for each entry 
         @user_height = @user.user_profile.height.to_f
