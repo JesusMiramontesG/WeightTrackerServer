@@ -44,7 +44,7 @@ class WeightEntriesController < ApplicationController
         @graph_labels = Array.new
         @graph_data = Array.new
         @weight_entries.each do |entry|
-            @graph_labels.push(entry.updated_at.in_time_zone(@preferred_timezone).strftime("%m-%d-%Y %r"))
+            @graph_labels.push(entry.updated_at.in_time_zone(@preferred_timezone).strftime("%b, %d %Y %I:%S%p"))
             @graph_data.push(entry.exact_weight.to_f)
         end
     end
@@ -60,7 +60,17 @@ class WeightEntriesController < ApplicationController
             flash[:success] = "Your weight entry has been saved!"
             redirect_to user_weight_entries_path
         else
-            flash[:warning] = "An error occurred when saving your entry"
+            # Check to see if there was an ActiveRecord validation that failed.
+            # If so, grab the errors and pass them to the flash for rendering
+            if @weight_entry.errors.any?
+                @new_entry_errors = @weight_entry.errors.full_messages.to_sentence
+                puts  
+            else
+                # If there are no ActiveRecord validations that failed and there was still a failure...
+                # Let the user know something went wrong with a generic failure
+                @new_entry_errors = "An error occurred when saving your entry. Try that again?"
+            end
+            flash[:notice] = @new_entry_errors
             redirect_to user_weight_entries_path
         end
     end
@@ -70,7 +80,7 @@ class WeightEntriesController < ApplicationController
         if @weight_entry.update_attributes(weight_entry_params)
             flash[:success] = "Entry has been updated"
         else
-            render :show
+            render :index
         end
     end
 

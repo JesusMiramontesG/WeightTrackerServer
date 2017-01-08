@@ -11,7 +11,7 @@ class UserProfile < ApplicationRecord
 
     validates :preferred_units, presence: true
     validates :height, presence: true
-    validates :gender, presence: true, numericality: true
+    validates :gender, presence: true, numericality: { greater_than: 0 }
     validates :full_name, presence: true
     validates :preferred_timezone, presence: true
 

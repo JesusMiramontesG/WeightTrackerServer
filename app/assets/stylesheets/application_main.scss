@@ -151,7 +151,6 @@ body {
 
     .textfield {
         @include border-radius(5px);
-        border: 0;
         padding: 5px 10px;
         display: block;
         width: 80%;
@@ -278,14 +277,12 @@ body {
     box-shadow: 1px 2px $box-shadow-bg;
     -webkit-box-shadow: 1px 1px 2px $box-shadow-bg;
     border-collapse: collapse;
-    border: 2px solid $box-shadow-bg;
    
     tr {
         border-bottom: 1px solid $transulucent-light-border;
-        padding: 10px 0;
         td, th {
             line-height: 30px;
-            padding: 0 !important;
+            padding: 5px;
             margin: 10px 0 !important;
         }
     }
@@ -348,8 +345,6 @@ hr.clear {
     }
 }
 
-
-
 .weight-diff-indicator {
     text-align: center;
     margin: 0 auto;
@@ -375,7 +370,6 @@ hr.clear {
     margin: 0 auto;
     padding: 0;
 
-    form {
         width: 60%;
         display: block;
         margin: 0 auto;
@@ -398,8 +392,6 @@ hr.clear {
         font-size: 1.35em;
     }
     
-}
-
 .notification-list {
     display: block;
     margin: 0 20px 5px 0;
@@ -462,5 +454,11 @@ hr.clear {
 
     a {
         line-height: 2em;
+    }
+}
+
+.has-error {
+    input[type="number"] {
+        background: #f9d9d8;
     }
 }

@@ -1,5 +1,4 @@
 <div class="weight-entries-container col-md-8 col-xs-8">
-
     <% if @weight_entries.count > 0 %>
         <h2 class="last-weight-entry">Last Weight Entry
             <span class="last-weight"><%= "#{@weight_entries.first.exact_weight.to_f.round(2)} #{@preferred_units_string}"%><span>
@@ -19,26 +18,22 @@
         <h2 class="last-weight-entry">Log your first weight entry to get started!</h2>
     <% end %>
         <div class="weigh-in">        
-            <% unless flash.nil? %>
-                <% flash.each  do |type, message|  %>
-                    <div class="notify notify-<%= "#{type}" %>">
-                        <%= "#{message}" %>
-                    </div>
-                <% end %>
+            <% unless flash[:notice].nil? %>
+                <%= render 'shared/flash' %>
             <% end %>
 
             <%= form_for :weight_entry, html: {novalidate: "novalidate"}, url: user_weight_entries_path do |f| %>
-                    <div class="field">
+                <div class="form-group field <%= "has-error" if flash[:notice] %>">
                         <%= f.label "exact_weight", "New weight" %>
-                        <%= f.number_field "exact_weight", id: "newWeightEntryBtn", class: "textfield small-footprint", placeholder: "... #{@preferred_units_string}" %>
+                        <%= f.number_field "exact_weight", class: "form-control textfield small-footprint", placeholder: "... #{@preferred_units_string}" %>
                     <%= f.submit "Save", class: "btn btn-default new-weight-btn" %>
                     </div>
             <% end %> 
         </div>
  
-        <hr class="clear">
-            <canvas id="weightChart" width="500" height="200"></canvas>
-        </h2>
+        <div class="clear weight-chart-container">
+            <canvas id="weightChart" width="500" height="265"></canvas>
+        </div>
 <table class="weight-entries">
     <thead>
         <tr>
@@ -56,7 +51,7 @@
             <% elsif @preferred_units == 1 %>
                 <td><%= ((entry.exact_weight.to_f.round(2) / (@user_height.to_f/100)**2.0)).round(1) %></td>
             <% end %>
-            <td><%= entry.updated_at.in_time_zone(@preferred_timezone).strftime("%m-%d-%Y %r") %></td>
+            <td><%= entry.updated_at.in_time_zone(@preferred_timezone).strftime("%b, %d %Y %I:%S%p") %></td>
         </tr>
     <% end %>
     </tbody>
@@ -64,6 +59,7 @@
 </div>
 <script>
     Chart.defaults.global.defaultFontColor = 'rgba(255,255,255,0.8)';
+    Chart.defaults.global.defaultFontSize = 10;
     var ctx = document.getElementById("weightChart");
     var myLineChart = new Chart(ctx, {
         type: 'line',

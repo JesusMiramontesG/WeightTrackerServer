@@ -6,5 +6,5 @@ class WeightEntry < ApplicationRecord
     attr_encrypted :exact_weight, :key => :encryption_key
     attr_encrypted :bmi, :key => :encryption_key
 
-    validates :exact_weight, presence: true, numericality: true
+    validates :exact_weight, presence: true, numericality: { greater_than: 0 }
 end
