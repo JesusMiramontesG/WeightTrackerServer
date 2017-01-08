@@ -54,7 +54,7 @@
                         <% else %>
                             <li>
                         <% end %>
-                        <%= link_to "Weight Entries", user_weight_entries_path %>
+                        <%= link_to "Weight Entries", pretty_weight_entries_path %>
                         </li>
 
 
@@ -63,7 +63,7 @@
                         <% else %>
                             <li>
                         <% end %>
-                        <%= link_to "Your Profile", edit_user_profile_path(current_user) %>
+                        <%= link_to "Your Profile", pretty_user_profile_path %>
                         </li>
 
                        <% if (controller_name + "#" + action_name).eql? "integrations#edit" %>
@@ -71,7 +71,7 @@
                         <% else %>
                             <li>
                         <% end %>
-                        <%= link_to "Your Integrations", edit_user_profile_path(current_user) %>
+                        <%= link_to "Your Integrations", pretty_user_profile_path %>
                         </li>
  
  

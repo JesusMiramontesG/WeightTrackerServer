@@ -9,4 +9,7 @@ Rails.application.routes.draw do
         resources :weight_entries, shallow: true
         resources :user_service_integrations, shallow: true
     end
+
+    get 'profile', to: 'user_profiles#edit', as: 'pretty_user_profile'
+    get 'weight-entries', to: 'weight_entries#index', as: 'pretty_weight_entries'
 end

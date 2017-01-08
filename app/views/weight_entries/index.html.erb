@@ -18,12 +18,12 @@
         <h2 class="last-weight-entry">Log your first weight entry to get started!</h2>
     <% end %>
         <div class="weigh-in">        
-            <% unless flash[:notice].nil? %>
+            <% unless flash[:error].nil? %>
                 <%= render 'shared/flash' %>
             <% end %>
 
             <%= form_for :weight_entry, html: {novalidate: "novalidate"}, url: user_weight_entries_path do |f| %>
-                <div class="form-group field <%= "has-error" if flash[:notice] %>">
+                <div class="form-group field <%= "has-error" if flash[:error] %>">
                         <%= f.label "exact_weight", "New weight" %>
                         <%= f.number_field "exact_weight", class: "form-control textfield small-footprint", placeholder: "... #{@preferred_units_string}" %>
                     <%= f.submit "Save", class: "btn btn-default new-weight-btn" %>

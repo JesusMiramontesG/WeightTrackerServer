@@ -30,7 +30,7 @@ class UserProfilesController < ApplicationController
         if @user_profile.update_attributes(user_profile_params)
             flash[:notice] = "Your user profile has been updated!"
             puts flash[:notice]
-            redirect_to edit_user_profile_path(@user)
+            redirect_to pretty_user_profile_path
         else
             render :edit
         end

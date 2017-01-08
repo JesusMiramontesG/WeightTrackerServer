@@ -58,7 +58,7 @@ class WeightEntriesController < ApplicationController
         @weight_entry = @user.weight_entries.build(weight_entry_params)
         if @weight_entry.save
             flash[:success] = "Your weight entry has been saved!"
-            redirect_to user_weight_entries_path
+            redirect_to pretty_weight_entries_path
         else
             # Check to see if there was an ActiveRecord validation that failed.
             # If so, grab the errors and pass them to the flash for rendering
@@ -70,8 +70,8 @@ class WeightEntriesController < ApplicationController
                 # Let the user know something went wrong with a generic failure
                 @new_entry_errors = "An error occurred when saving your entry. Try that again?"
             end
-            flash[:notice] = @new_entry_errors
-            redirect_to user_weight_entries_path
+            flash[:error] = @new_entry_errors
+            redirect_to pretty_weight_entries_path
         end
     end
     
