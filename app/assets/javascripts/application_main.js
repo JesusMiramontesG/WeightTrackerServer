@@ -44,8 +44,7 @@ function toggleShowPassword(element) {
     }
 }
 
-$(document).ready(function() {
-    $(".show-password").on("click", function() { 
+$(document).on("click", ".show-password", function() { 
         emailField = $("#user_email");
         passwordField = $("#user_password");
         newType = toggleShowPassword(passwordField);
@@ -55,15 +54,13 @@ $(document).ready(function() {
         } else {
             anchor.html("Mask");
         }
-    });
-    
-    $("#sign-in-btn").on("click", function() {
+}); 
+    $(document).on("click", "#sign-in-btn", function() {
         toggleAuthActivity();
     });
 
-    $(".new-weight-btn").on("click", function() {
-        validatePresenceOfWeightEntry($("#weight_entry_exact_weight"));
+    $(document).on("click", ".new-weight-btn", function() {
+        //validatePresenceOfWeightEntry($("#weight_entry_exact_weight"));
     });
 
-});
 
